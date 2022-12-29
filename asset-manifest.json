@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/uncle-bens-data/static/css/main.294ba919.css",
+    "main.js": "/uncle-bens-data/static/js/main.9f73e6cd.js",
+    "static/js/787.78519373.chunk.js": "/uncle-bens-data/static/js/787.78519373.chunk.js",
+    "index.html": "/uncle-bens-data/index.html",
+    "main.294ba919.css.map": "/uncle-bens-data/static/css/main.294ba919.css.map",
+    "main.9f73e6cd.js.map": "/uncle-bens-data/static/js/main.9f73e6cd.js.map",
+    "787.78519373.chunk.js.map": "/uncle-bens-data/static/js/787.78519373.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.294ba919.css",
+    "static/js/main.9f73e6cd.js"
+  ]
+}
