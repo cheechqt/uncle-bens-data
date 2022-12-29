@@ -46,6 +46,8 @@ function getResultData(q, a) {
 `;
 }
 
+// "homepage": "https://cheechqt.github.io/uncle-bens-data",
+
 function App() {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([{ id: 666, value: "" }]);
