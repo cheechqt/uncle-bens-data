@@ -8,33 +8,29 @@ function testForBuckets(str) {
   return result;
 }
 
+function formatString(str) {
+  return str
+    .replace(/\\/g, "\\\\")
+    .replace(/(\r\n|\n|\r)/gm, " ")
+    .trim();
+}
+
 function getResultData(q, a) {
   const qBuckets = testForBuckets(q);
-  const q1 =
-    qBuckets[0] + q.replace(/(\r\n|\n|\r)/gm, " ").trim() + qBuckets[0];
+  const q1 = qBuckets[0] + formatString(q) + qBuckets[0];
 
   let a1 = "";
   if (a.length === 1) {
     const aBuckets = testForBuckets(a[0].value);
-    a1 =
-      aBuckets[0] +
-      a[0].value.replace(/(\r\n|\n|\r)/gm, " ").trim() +
-      aBuckets[0];
+    a1 = aBuckets[0] + formatString(a[0].value) + aBuckets[0];
   } else {
     let result = "[";
     a.map((i, index) => {
       const aBuckets = testForBuckets(i.value);
       if (index === 0) {
-        result +=
-          aBuckets[0] +
-          i.value.replace(/(\r\n|\n|\r)/gm, " ").trim() +
-          aBuckets[0];
+        result += aBuckets[0] + formatString(i.value) + aBuckets[0];
       } else {
-        result +=
-          ", " +
-          aBuckets[0] +
-          i.value.replace(/(\r\n|\n|\r)/gm, " ").trim() +
-          aBuckets[0];
+        result += ", " + aBuckets[0] + formatString(i.value) + aBuckets[0];
       }
     });
     a1 = result + "]";
@@ -79,7 +75,7 @@ function App() {
                 }}
               />
               <button
-                className="bg-yellow-700 px-3 ml-2 rounded-full text-black disabled:hidden"
+                className="bg-yellow-600 px-3 ml-2 rounded-full text-black disabled:hidden"
                 disabled={answers.length < 2}
                 onClick={() =>
                   setAnswers([...answers.filter((i) => i.id !== item.id)])
@@ -91,19 +87,40 @@ function App() {
           );
         })}
       </ul>
-      <button
-        className="bg-yellow-700 hover:bg-green-700 text-black font-bold p-3 mt-3 rounded-2xl"
-        onClick={() => setAnswers([...answers, { id: Date.now(), value: "" }])}
-      >
-        Еще один ответ
-      </button>
+      <div className="flex gap-x-3 mt-3">
+        <button
+          className="bg-gray-900 hover:bg-yellow-500 hover:text-black font-bold p-3 rounded-2xl"
+          onClick={() =>
+            setAnswers([...answers, { id: Date.now(), value: "" }])
+          }
+        >
+          Еще один ответ
+        </button>
+        <button
+          className="bg-gray-900 text-red-500 hover:bg-red-500 hover:text-black font-bold p-3 rounded-2xl"
+          onClick={() => {
+            setQuestion("");
+            setAnswers([{ id: Date.now(), value: "" }]);
+          }}
+        >
+          Удалить все
+        </button>
+      </div>
       <h4>Результат</h4>
-      <textarea
-        className="text-cyan-900"
-        ref={resultRef}
-        rows="30"
-        readOnly
-      ></textarea>
+      <div className="relative w-[80%]">
+        <textarea
+          className="text-cyan-900 relative w-full"
+          ref={resultRef}
+          rows="30"
+          readOnly
+        ></textarea>
+        <button
+          className="absolute right-0 top-1 py-1 px-2 bg-gray-900 hover:bg-gray-700 rounded-xl font-bold"
+          onClick={() => navigator.clipboard.writeText(resultRef.current.value)}
+        >
+          Copy
+        </button>
+      </div>
     </div>
   );
 }
